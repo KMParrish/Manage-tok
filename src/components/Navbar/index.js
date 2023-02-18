@@ -3,15 +3,15 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '@fortawesome/fontawesome-free/css/all.css';
 import { Link } from 'react-router-dom';
-import Login from "../Login/Login";
+
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark gradient-custom">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           ManageTok
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler"
@@ -28,12 +28,12 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
             <li className="nav-item text-center mx-2 mx-lg-1">
-              <a className="nav-link active" aria-current="page" href="#!">
+              <Link className="nav-link active" to="/Dashboard" aria-current="page">
                 <div>
                   <i className="fas fa-home fa-lg mb-1"></i>
                 </div>
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown text-center mx-2 mx-lg-1">
               <a
