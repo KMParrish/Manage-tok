@@ -1,54 +1,92 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Dashboard() {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  useEffect(() => {
+    return () => {
+      selectedFiles.forEach(file => {
+        URL.revokeObjectURL(file.previewUrl);
+      });
+    };
+  }, [selectedFiles]);
+
+  const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    file.previewUrl = url;
+    setSelectedFiles([...selectedFiles, file]);
+  }
+
+  const handleFileDelete = (file) => {
+    const newSelectedFiles = selectedFiles.filter(selectedFile => selectedFile !== file);
+    setSelectedFiles(newSelectedFiles);
+  }
+
+  const FilePreview = ({ file, onDelete }) => {
+    const handlePreviewClick = () => {
+      window.open(file.previewUrl);
+    }
+
+    const handleDeleteClick = () => {
+      onDelete(file);
+    }
+
     return (
-        <section className="vh-100 gradient-custom">
-          <div className="container py-5 h-100">
-            <div className="row d-flex justify-content-center align-items-center h-100">
-              <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div className="card bg-dark text-white" style={{borderRadius: '2rem'}}>
-                  <div className="card-body p-5 text-center">
-    
-                    <div className="mb-md-5 mt-md-4 pb-5">
-    
-                      <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                      <p className="text-white-50 mb-5">Please enter your login and password!</p>
-    
-                      <div className="form-outline form-white mb-4">
-                        <input type="email" id="typeEmailX" className="form-control form-control-lg" />
-                        <label className="form-label" htmlFor="typeEmailX">Email</label>
-                      </div>
-    
-                      <div className="form-outline form-white mb-4">
-                        <input type="password" id="typePasswordX" className="form-control form-control-lg" />
-                        <label className="form-label" htmlFor="typePasswordX">Password</label>
-                      </div>
-    
-                      <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p>
-    
-                      <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-    
-                      <div className="d-flex justify-content-center text-center mt-4 pt-1">
-                        <a href="#!" className="text-white"><i className="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#!" className="text-white"><i className="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                        <a href="#!" className="text-white"><i className="fab fa-google fa-lg"></i></a>
-                      </div>
-    
+      <div className="mb-4">
+        <h3 className="mb-3">{file.name}</h3>
+        <div className="d-flex justify-content-between">
+          <button className="btn btn-primary" onClick={handlePreviewClick}>Preview</button>
+          <button className="btn btn-danger" onClick={handleDeleteClick}>Delete</button>
+        </div>
+      </div>
+    );
+  }
+
+  const renderFilePreviews = () => {
+    return selectedFiles.map((file, index) => (
+      <div key={index} className="mb-4">
+        <h3 className="mb-3">{file.name}</h3>
+        <button className="btn btn-primary me-2" onClick={() => window.open(file.previewUrl)}>Preview</button>
+        <button className="btn btn-danger" onClick={() => handleFileDelete(file)}>Delete</button>
+      </div>
+    ));
+  }
+
+  return (
+    <section className="vh-100 gradient-custom">
+      <div className="container py-5 h-100">
+        <div className="row d-flex justify-content-center align-items-center h-100 w-100">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5 w-100">
+            <div className="card bg-dark text-white" style={{borderRadius: '2rem'}}>
+              <div className="card-body p-5 d-flex flex-column">
+                <h2 className="fw-bold mb-1 text-uppercase text-center">Your Dashboard</h2>
+                <div className="row">
+                  <div className="col-md-3">
+                    <div className="list-group">
+                      <label htmlFor="file-input" className="list-group-item list-group-item-action">
+                        <i className="fa-solid fa-folder"></i> Open File
+                      </label>
+                      <input id="file-input" type="file" style={{ display: "none" }} onChange={handleFileSelect} />
                     </div>
-    
-                    <div>
-                      <p className="mb-0">Don't have an account? <Link className="text-white-50 fw-bold" to="/Signup">Sign Up</Link>
-                      </p>
-                    </div>
-    
+                  </div>
+                  <div className="col-md-9">
+                    {selectedFiles.length > 0 && (
+                      <div className="mb-4">
+                        {renderFilePreviews()}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      );
-  }
-  export default Dashboard
+        </div>
+      </div>
+    </section>
+  );
+
+}
+
+export default Dashboard;

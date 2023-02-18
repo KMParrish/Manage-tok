@@ -78,7 +78,7 @@ function Navbar() {
             <li className="nav-item text-center mx-2 mx-lg-1">
               <Link className="nav-link" to="/Login">
                 <div>
-                  <i className="fas fa-globe-americas fa-lg mb-1"></i>
+                  <i className="fa-solid fa-right-to-bracket fa-lg mb-1"></i>
                 </div>
                 Login
               </Link>
@@ -86,7 +86,7 @@ function Navbar() {
             <li className="nav-item text-center mx-2 mx-lg-1">
               <Link className="nav-link" to="/Signup">
                 <div>
-                  <i className="fas fa-globe-americas fa-lg mb-1"></i>
+                  <i className="fa-solid fa-user-plus fa-lg mb-1"></i>
                 </div>
                 Sign-Up
               </Link>
