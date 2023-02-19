@@ -74,20 +74,31 @@ function Dashboard() {
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100 w-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5 w-100">
-            <div className="card bg-dark text-white" style={{borderRadius: '2rem', height: '90vh'}}>
+            <div className="card bg-dark text-white" style={{borderRadius: '2rem', height: '80vh'}}>
               <div className="card-body p-5 d-flex flex-column">
+                <div className="d-flex align-items-center mb-3">
+                  <i className="fa-brands fa-tiktok fa-lg me-2"></i>
+                  <span className="text-white me-2">Accounts</span>
+                </div>
                 <h2 className="fw-bold mb-1 text-uppercase text-center">Your Dashboard</h2>
                 <div className="row">
-                  <div className="col-md-3">
-                    <div className="list-group">
-                      <label htmlFor="file-input" className="list-group-item list-group-item-action">
-                        <i className="fa-solid fa-folder"></i> Open File
-                      </label>
-                      <input id="file-input" type="file" style={{ display: "none" }} onChange={handleFileSelect} />
+                  <div className="col-md-3 d-flex flex-column justify-content-between text-center" style={{ borderRight: '2px solid white' }}>
+                    <div>
+                      <div className="list-group">
+                        <label htmlFor="file-input" className="list-group-item list-group-item-action">
+                          <i className="fa-solid fa-folder"></i> Open File
+                        </label>
+                        <input id="file-input" type="file" style={{ display: "none" }} onChange={handleFileSelect} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="d-flex justify-content-center">
+                        <button className="btn btn-primary w-100">Upload</button>
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-9">
-                    <div style={{ height: 'calc(80vh - 48px)', overflowY: 'auto' }}>
+                    <div style={{ height: 'calc(80vh - 150px)', overflowY: 'auto' }}>
                       {selectedFiles.length > 0 && (
                         <div className="mb-4">
                           {renderFilePreviews()}
@@ -103,6 +114,11 @@ function Dashboard() {
       </div>
     </section>
   );
+  
+  
+  
+  
+  
   
   
 
