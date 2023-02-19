@@ -32,3 +32,9 @@
     box-shadow: #222 1px 0 10px;
     text-decoration: underline;
   }
+  .bi {
+    background-image: url('../images/ManageTok.webp');
+    background-size: cover;
+    background-position: center;
+  }
+  

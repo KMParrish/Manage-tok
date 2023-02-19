@@ -1,30 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState, useEffect, useRef } from 'react';
+import "./Dashboard.css"
+
 
 function Dashboard() {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const filesRef = useRef([]);
 
   useEffect(() => {
     return () => {
-      selectedFiles.forEach(file => {
+      filesRef.current.forEach(file => {
         URL.revokeObjectURL(file.previewUrl);
       });
     };
-  }, [selectedFiles]);
+  }, []);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     file.previewUrl = url;
-    setSelectedFiles([...selectedFiles, file]);
+    filesRef.current = [...filesRef.current, file];
+    setSelectedFiles(filesRef.current);
   }
 
   const handleFileDelete = (file) => {
-    const newSelectedFiles = selectedFiles.filter(selectedFile => selectedFile !== file);
+    const newSelectedFiles = filesRef.current.filter(selectedFile => selectedFile !== file);
+    filesRef.current = newSelectedFiles;
     setSelectedFiles(newSelectedFiles);
   }
 
-  const FilePreview = ({ file, onDelete }) => {
+  const FilePreviewBox = ({ file, onDelete }) => {
     const handlePreviewClick = () => {
       window.open(file.previewUrl);
     }
@@ -34,32 +38,43 @@ function Dashboard() {
     }
 
     return (
-      <div className="mb-4">
-        <h3 className="mb-3">{file.name}</h3>
-        <div className="d-flex justify-content-between">
-          <button className="btn btn-primary" onClick={handlePreviewClick}>Preview</button>
-          <button className="btn btn-danger" onClick={handleDeleteClick}>Delete</button>
+      <div className="container mx-auto mt-4">
+        <div className="row">
+          <div className="col-md-4">
+            <div className="card h-100" style={{ width: '18rem' }}>
+              <img src={file.previewUrl} className="card-img-top" alt={file.name} style={{objectFit: 'cover', height: '10rem'}} />
+              <div className="card-body">
+                <h5 className="card-title">{file.name}</h5>
+                <div className="d-flex justify-content-between">
+                  <button className="btn mr-2" onClick={handlePreviewClick}><i className="fas fa-link"></i> Preview</button>
+                  <button className="btn btn-secondary" onClick={handleDeleteClick}><i className="fas fa-trash"></i> Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   const renderFilePreviews = () => {
-    return selectedFiles.map((file, index) => (
-      <div key={index} className="mb-4">
-        <h3 className="mb-3">{file.name}</h3>
-        <button className="btn btn-primary me-2" onClick={() => window.open(file.previewUrl)}>Preview</button>
-        <button className="btn btn-danger" onClick={() => handleFileDelete(file)}>Delete</button>
+    return (
+      <div className="d-flex flex-wrap">
+        {selectedFiles.map((file, index) => (
+          <div key={index} className="mx-3 my-3">
+            <FilePreviewBox file={file} onDelete={handleFileDelete} />
+          </div>
+        ))}
       </div>
-    ));
+    );
   }
 
   return (
-    <section className="vh-100 gradient-custom">
+    <section className="vh-100 gradient-custom-2">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100 w-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5 w-100">
-            <div className="card bg-dark text-white" style={{borderRadius: '2rem'}}>
+            <div className="card bg-dark text-white" style={{borderRadius: '2rem', height: '90vh'}}>
               <div className="card-body p-5 d-flex flex-column">
                 <h2 className="fw-bold mb-1 text-uppercase text-center">Your Dashboard</h2>
                 <div className="row">
@@ -72,11 +87,13 @@ function Dashboard() {
                     </div>
                   </div>
                   <div className="col-md-9">
-                    {selectedFiles.length > 0 && (
-                      <div className="mb-4">
-                        {renderFilePreviews()}
-                      </div>
-                    )}
+                    <div style={{ height: 'calc(80vh - 48px)', overflowY: 'auto' }}>
+                      {selectedFiles.length > 0 && (
+                        <div className="mb-4">
+                          {renderFilePreviews()}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -86,7 +103,9 @@ function Dashboard() {
       </div>
     </section>
   );
+  
+  
 
-}
+                        }
 
-export default Dashboard;
+export default Dashboard
