@@ -4,6 +4,7 @@
   
   body {
     background: #111 !important;
+    overflow: hidden;
   }
   
   .card {
@@ -37,4 +38,48 @@
     background-size: cover;
     background-position: center;
   }
+  .upload-button {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+  }
+  
+  .upload-button button {
+    font-size: 1.25rem;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .upload-button button:hover {
+    background-color: #0062cc;
+  }
+  /* width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* background of the scrollbar track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* color of the scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 20px;
+  border: 3px solid #f1f1f1;
+}
+
+/* on hover, color of the scrollbar handle */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
   
