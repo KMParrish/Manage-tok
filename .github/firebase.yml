@@ -1,0 +1,37 @@
+name: Build and Deploy Firebase Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v2.3.0
+      with:
+        node-version: '18.x'
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Login to Firebase
+      uses: firebase/login-action@v1
+      with:
+        project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN }}
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy to Firebase
+      run: firebase deploy --only hosting

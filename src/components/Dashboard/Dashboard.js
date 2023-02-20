@@ -48,9 +48,7 @@ function Dashboard() {
     const handleDeleteClick = () => {
       onDelete(file);
     }
-  
-    const fileName = file.name.split(' ').slice(0, 3).join(' ');
-  
+    
     return (
       <div className="container mx-auto mt-4">
         <div className="row">
