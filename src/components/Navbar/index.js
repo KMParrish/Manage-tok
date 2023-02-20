@@ -43,16 +43,18 @@ function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
-            <li className="nav-item text-center mx-2 mx-lg-1">
-              <Link className="nav-link active" to="/Dashboard" aria-current="page">
-                <div>
-                  <i className="fas fa-home fa-lg mb-1"></i>
-                </div>
-                Dashboard
-              </Link>
-            </li>
-            
-                
+            {user && (
+              <li className="nav-item text-center mx-2 mx-lg-1">
+                <Link className="nav-link active" to="/Dashboard" aria-current="page">
+                  <div>
+                    <i className="fas fa-home fa-lg mb-1"></i>
+                  </div>
+                  Dashboard
+                </Link>
+              </li>
+            )}
+
+
           </ul>
           <ul className="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
             {user ? (
