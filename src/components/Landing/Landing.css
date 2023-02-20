@@ -1,0 +1,23 @@
+.landing-page-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+  
+  .about-section {
+    flex: 1;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  .icon-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fa-icon {
+    font-size: 10rem;
+  }
+  
