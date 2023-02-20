@@ -35,44 +35,8 @@ function Navbar() {
                 Dashboard
               </Link>
             </li>
-            <li className="nav-item dropdown text-center mx-2 mx-lg-1">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-mdb-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <div>
-                <i class="fa-brands fa-tiktok fa-lg mb-1"></i>
-                  <span className="badge rounded-pill badge-notification bg-dark">
-                    11
-                  </span>
-                </div>
-                Accounts
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
+            
+                
           </ul>
           <ul className="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
             <li className="nav-item text-center mx-2 mx-lg-1">
