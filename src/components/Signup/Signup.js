@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import './index.css'
-import { Link, useNavigate  } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { firebaseConfig } from '../../index';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import UserContext from '../../UserContext';
 
 
 function Signup() {
@@ -10,7 +10,19 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        setUser(user);
+        navigate('/dashboard'); // redirect to dashboard after successful login
+      }
+    });
+
+    return unsubscribe;
+  }, [navigate, setUser]);
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -21,11 +33,10 @@ function Signup() {
     }
 
     try {
-      console.log(firebaseConfig)
       const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log('User account created successfully!', userCredential.user);
-      navigate('/dashboard'); // redirect to dashboard after successful sign-up
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
       console.error('Error creating user account', error);
@@ -37,11 +48,12 @@ function Signup() {
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card bg-dark text-white" style={{borderRadius: "1rem"}}>
+            <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
               <div className="card-body p-5 text-center">
                 <div className="mb-md-5 mt-md-4 pb-5">
                   <h2 className="fw-bold mb-2 text-uppercase">Sign up</h2>
                   <p className="text-white-50 mb-5">Please enter your email and password!</p>
+                  {error && <div className="text-danger mb-3">{error}</div>}
                   <div className="form-outline form-white mb-4">
                     <input type="email" id="typeEmailX" className="form-control form-control-lg" value={email} onChange={(event) => setEmail(event.target.value)} />
                     <label className="form-label" htmlFor="typeEmailX">Email</label>
