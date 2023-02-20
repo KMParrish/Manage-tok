@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./Dashboard.css"
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
+
 function Dashboard() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const filesRef = useRef([]);
@@ -54,7 +55,7 @@ function Dashboard() {
       <div className="container mx-auto mt-4">
         <div className="row">
           <div className="col-md-4">
-            <div className="card h-100" style={{ width: '18rem' }}>
+            <div className="card h-100" style={{ width: '16rem' }}>
               <img src={file.previewUrl} className="card-img-top" alt={file.name} style={{objectFit: 'cover', height: '10rem'}} />
               <div className="card-body" style={{ maxHeight: '6rem', overflow: 'hidden' }}>
               <h5 className="card-title" style={{ width: '100%', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
@@ -90,28 +91,37 @@ function Dashboard() {
 
   return (
     <section className="vh-100 gradient-custom-2">
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-12">
-            <div className="card">
+      <div className="container py-5 h-75">
+        <div className="row d-flex justify-content-center align-items-stretch h-100">
+          <div className="col-3">
+            <div className="card h-100">
+              <div className="card-header text-white">Sidebar</div>
               <div className="card-body">
-                <DropdownButton title="Accounts" variant="link" className="text-decoration-none text-dark" >
+                <label htmlFor="file-upload" className="btn btn-primary mb-2 w-100">Open File</label>
+                <input id="file-upload" type="file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif" style={{display: 'none'}} onChange={handleFileSelect} />
+                <label htmlFor="folder-upload" className="btn btn-primary mb-2 w-100">Open Folder</label>
+                <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{display: 'none'}} onChange={handleFolderSelect} />
+                <button className="btn btn-danger mb-2 w-100" onClick={() => setSelectedFiles([])}>Clear All</button>
+              </div>
+            </div>
+          </div>
+          <div className="col-9 h-100">
+            <div className="card h-100">
+              <div className="card-header d-flex justify-content-between align-items-center">
+                <div>
+                <DropdownButton title={<><i className="fab fa-tiktok fa-inverse me-2"></i>Accounts</>} variant="secondary" className="text-decoration-none text-dark">
                   <Dropdown.Item href="#">Account 1</Dropdown.Item>
                   <Dropdown.Item href="#">Account 2</Dropdown.Item>
                   <Dropdown.Item href="#">Account 3</Dropdown.Item>
-                </DropdownButton>
-                <span className="badge bg-secondary ms-2">3</span>
-                <div className="d-flex mb-4">
-                  <label htmlFor="file-upload" className="btn btn-primary me-2">Open File</label>
-                  <input id="file-upload" type="file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif" style={{display: 'none'}} onChange={handleFileSelect} />
-                  <label htmlFor="folder-upload" className="btn btn-primary me-2">Open Folder</label>
-                  <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{display: 'none'}} onChange={handleFolderSelect} />
-                  <DropdownButton title="Sort by" variant="secondary" className="me-2">
-                    <Dropdown.Item href="#">Name</Dropdown.Item>
-                    <Dropdown.Item href="#">Upload Date</Dropdown.Item>
                   </DropdownButton>
-                  <button className="btn btn-danger me-2" onClick={() => setSelectedFiles([])}>Clear All</button>
+  
                 </div>
+                <DropdownButton title="Sort by" variant="secondary" className="text-decoration-none text-dark">
+                  <Dropdown.Item href="#">Name</Dropdown.Item>
+                  <Dropdown.Item href="#">Upload Date</Dropdown.Item>
+                </DropdownButton>
+              </div>
+              <div className="card-body" style={{ overflow: 'auto' }}>
                 {selectedFiles.length > 0 ? renderFilePreviews() : <p>No files selected.</p>}
               </div>
             </div>
@@ -120,6 +130,17 @@ function Dashboard() {
       </div>
     </section>
   );
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
   
 }
 
