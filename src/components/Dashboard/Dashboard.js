@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./Dashboard.css"
-
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 function Dashboard() {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -28,27 +28,45 @@ function Dashboard() {
     setSelectedFiles(newSelectedFiles);
   }
 
+  const handleFolderSelect = (event) => {
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const url = URL.createObjectURL(file);
+      file.previewUrl = url;
+    }
+    filesRef.current = [...files];
+    setSelectedFiles(filesRef.current);
+  }
+
   const FilePreviewBox = ({ file, onDelete }) => {
     const handlePreviewClick = () => {
       window.open(file.previewUrl);
     }
-
+  
     const handleDeleteClick = () => {
       onDelete(file);
     }
-
+  
+    const fileName = file.name.split(' ').slice(0, 3).join(' ');
+  
     return (
       <div className="container mx-auto mt-4">
         <div className="row">
           <div className="col-md-4">
             <div className="card h-100" style={{ width: '18rem' }}>
               <img src={file.previewUrl} className="card-img-top" alt={file.name} style={{objectFit: 'cover', height: '10rem'}} />
-              <div className="card-body">
-                <h5 className="card-title">{file.name}</h5>
+              <div className="card-body" style={{ maxHeight: '6rem', overflow: 'hidden' }}>
+              <h5 className="card-title" style={{ width: '100%', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                {file.name}
+              </h5>
+
                 <div className="d-flex justify-content-between">
                   <button className="btn mr-2" onClick={handlePreviewClick}><i className="fas fa-link"></i> Preview</button>
                   <button className="btn btn-secondary" onClick={handleDeleteClick}><i className="fas fa-trash"></i> Delete</button>
                 </div>
+                <p className="card-text">{file.description}</p>
+                <p className="card-text"><small className="text-muted">{file.uploadDate}</small></p>
               </div>
             </div>
           </div>
@@ -56,6 +74,7 @@ function Dashboard() {
       </div>
     );
   }
+  
 
   const renderFilePreviews = () => {
     return (
@@ -72,41 +91,28 @@ function Dashboard() {
   return (
     <section className="vh-100 gradient-custom-2">
       <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100 w-100">
-          <div className="col-12 col-md-8 col-lg-6 col-xl-5 w-100">
-            <div className="card bg-dark text-white" style={{borderRadius: '2rem', height: '80vh'}}>
-              <div className="card-body p-5 d-flex flex-column">
-                <div className="d-flex align-items-center mb-3">
-                  <i className="fa-brands fa-tiktok fa-lg me-2"></i>
-                  <span className="text-white me-2">Accounts</span>
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col-12">
+            <div className="card">
+              <div className="card-body">
+                <DropdownButton title="Accounts" variant="link" className="text-decoration-none text-dark" >
+                  <Dropdown.Item href="#">Account 1</Dropdown.Item>
+                  <Dropdown.Item href="#">Account 2</Dropdown.Item>
+                  <Dropdown.Item href="#">Account 3</Dropdown.Item>
+                </DropdownButton>
+                <span className="badge bg-secondary ms-2">3</span>
+                <div className="d-flex mb-4">
+                  <label htmlFor="file-upload" className="btn btn-primary me-2">Open File</label>
+                  <input id="file-upload" type="file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif" style={{display: 'none'}} onChange={handleFileSelect} />
+                  <label htmlFor="folder-upload" className="btn btn-primary me-2">Open Folder</label>
+                  <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{display: 'none'}} onChange={handleFolderSelect} />
+                  <DropdownButton title="Sort by" variant="secondary" className="me-2">
+                    <Dropdown.Item href="#">Name</Dropdown.Item>
+                    <Dropdown.Item href="#">Upload Date</Dropdown.Item>
+                  </DropdownButton>
+                  <button className="btn btn-danger me-2" onClick={() => setSelectedFiles([])}>Clear All</button>
                 </div>
-                <h2 className="fw-bold mb-1 text-uppercase text-center">Your Dashboard</h2>
-                <div className="row">
-                  <div className="col-md-3 d-flex flex-column justify-content-between text-center" style={{ borderRight: '2px solid white' }}>
-                    <div>
-                      <div className="list-group">
-                        <label htmlFor="file-input" className="list-group-item list-group-item-action">
-                          <i className="fa-solid fa-folder"></i> Open File
-                        </label>
-                        <input id="file-input" type="file" style={{ display: "none" }} onChange={handleFileSelect} />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary w-100">Upload</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div style={{ height: 'calc(80vh - 150px)', overflowY: 'auto' }}>
-                      {selectedFiles.length > 0 && (
-                        <div className="mb-4">
-                          {renderFilePreviews()}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                {selectedFiles.length > 0 ? renderFilePreviews() : <p>No files selected.</p>}
               </div>
             </div>
           </div>
@@ -115,13 +121,6 @@ function Dashboard() {
     </section>
   );
   
-  
-  
-  
-  
-  
-  
+}
 
-                        }
-
-export default Dashboard
+export default Dashboard 
