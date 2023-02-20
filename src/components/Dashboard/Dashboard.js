@@ -49,7 +49,7 @@ function Dashboard() {
       onDelete(file);
     }
   
-    const fileName = file.name.split(' ').slice(0, 3).join(' ');
+    
   
     return (
       <div className="container mx-auto mt-4">
@@ -91,14 +91,12 @@ function Dashboard() {
 
   return (
     <section className="vh-100 gradient-custom-2">
-      <div className="container py-5 h-75">
+      <div className="container py-5 h-75 w-100">
         <div className="row d-flex justify-content-center align-items-stretch h-100">
           <div className="col-3">
             <div className="card h-100">
               <div className="card-header text-white">Sidebar</div>
               <div className="card-body">
-                <label htmlFor="file-upload" className="btn btn-primary mb-2 w-100">Open File</label>
-                <input id="file-upload" type="file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif" style={{display: 'none'}} onChange={handleFileSelect} />
                 <label htmlFor="folder-upload" className="btn btn-primary mb-2 w-100">Open Folder</label>
                 <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{display: 'none'}} onChange={handleFolderSelect} />
                 <button className="btn btn-danger mb-2 w-100" onClick={() => setSelectedFiles([])}>Clear All</button>

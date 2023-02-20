@@ -6,7 +6,7 @@ import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import UserContext from './UserContext';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+import LandingPage from './components/Landing/Landing';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,6 +35,7 @@ function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
