@@ -2,10 +2,26 @@ import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '@fortawesome/fontawesome-free/css/all.css';
-import { Link } from 'react-router-dom';
-
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import UserContext from '../../UserContext';
+import { getAuth, signOut } from 'firebase/auth';
 
 function Navbar() {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const auth = getAuth();
+      await signOut(auth);
+      setUser(null);
+      navigate('/login');
+    } catch (error) {
+      console.error('Error logging out user', error);
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark gradient-custom">
       <div className="container-fluid">
@@ -39,22 +55,35 @@ function Navbar() {
                 
           </ul>
           <ul className="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
-            <li className="nav-item text-center mx-2 mx-lg-1">
-              <Link className="nav-link" to="/Login">
-                <div>
-                  <i className="fa-solid fa-right-to-bracket fa-lg mb-1"></i>
-                </div>
-                Login
-              </Link>
-            </li>
-            <li className="nav-item text-center mx-2 mx-lg-1">
-              <Link className="nav-link" to="/Signup">
-                <div>
-                  <i className="fa-solid fa-user-plus fa-lg mb-1"></i>
-                </div>
-                Sign-Up
-              </Link>
-            </li>
+            {user ? (
+              <li className="nav-item text-center mx-2 mx-lg-1">
+                <button className="nav-link btn btn-link" onClick={handleLogout}>
+                  <div>
+                    <i className="fa-solid fa-left-from-bracket fa-lg mb-1"></i>
+                  </div>
+                  Logout
+                </button>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item text-center mx-2 mx-lg-1">
+                  <Link className="nav-link" to="/Login">
+                    <div>
+                      <i className="fa-solid fa-right-to-bracket fa-lg mb-1"></i>
+                    </div>
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item text-center mx-2 mx-lg-1">
+                  <Link className="nav-link" to="/Signup">
+                    <div>
+                      <i className="fa-solid fa-user-plus fa-lg mb-1"></i>
+                    </div>
+                    Sign-Up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
