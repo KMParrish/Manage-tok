@@ -48,9 +48,7 @@ function Dashboard() {
     const handleDeleteClick = () => {
       onDelete(file);
     }
-  
     
-  
     return (
       <div className="container mx-auto mt-4">
         <div className="row">
