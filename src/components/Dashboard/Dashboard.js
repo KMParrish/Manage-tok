@@ -15,13 +15,7 @@ function Dashboard() {
     };
   }, []);
 
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
-    const url = URL.createObjectURL(file);
-    file.previewUrl = url;
-    filesRef.current = [...filesRef.current, file];
-    setSelectedFiles(filesRef.current);
-  }
+
 
   const handleFileDelete = (file) => {
     const newSelectedFiles = filesRef.current.filter(selectedFile => selectedFile !== file);

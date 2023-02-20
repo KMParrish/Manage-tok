@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import tiktokIcon from '../images/tiktok.gif'; // Assuming the images directory is located in the same directory as this file
 
 function LandingPage() {
