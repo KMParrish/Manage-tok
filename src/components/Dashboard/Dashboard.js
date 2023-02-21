@@ -48,7 +48,7 @@ function Dashboard() {
         <div className="row">
           <div className="col-md-4">
             <div className="card h-100" style={{ width: '16rem' }}>
-              <img src={file.previewUrl} className="card-img-top" alt={file.name} style={{objectFit: 'cover', height: '10rem'}} />
+              <img src={file.previewUrl} className="card-img-top" alt={file.name} style={{objectFit: 'cover', height: '8rem'}} />
               <div className="card-body" style={{ maxHeight: '6rem', overflow: 'hidden' }}>
               <h5 className="card-title" style={{ width: '100%', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                 {file.name}

@@ -4,7 +4,7 @@
   
   body {
     background: #111 !important;
-    overflow: hidden;
+    overflow-y: scroll;
   }
   
   .card {
@@ -34,32 +34,9 @@
     box-shadow: #222 1px 0 10px;
     text-decoration: underline;
   }
-  .bi {
-    background-image: url('../images/ManageTok.webp');
-    background-size: cover;
-    background-position: center;
-  }
-  .upload-button {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80px;
-  }
+
   
-  .upload-button button {
-    font-size: 1.25rem;
-    padding: 1rem 2rem;
-    border-radius: 2rem;
-    background-color: #007bff;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-  }
   
-  .upload-button button:hover {
-    background-color: #0062cc;
-  }
   /* width and height of the scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -68,7 +45,7 @@
 
 /* background of the scrollbar track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f1f1f100;
 }
 
 /* color of the scrollbar handle */

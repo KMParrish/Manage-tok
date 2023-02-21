@@ -7,6 +7,8 @@ import Signup from './components/Signup/Signup';
 import UserContext from './UserContext';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import LandingPage from './components/Landing/Landing';
+import PrivacyPolicy from './components/privacy';
+import TermsofService from './components/terms';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,6 +41,8 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="privacy" element={<PrivacyPolicy />} />
+          <Route path="terms" element={<TermsofService />} />
         </Route>
         <Route path="*" element={<Navigate to="/managetok" />} />
       </Routes>
