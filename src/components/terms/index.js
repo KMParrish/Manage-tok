@@ -13,6 +13,7 @@ function TermsofService() {
             >
               <strong className="h4">User Accounts</strong>
               <br />
+              <br />
               To use ManageTok, you must have a valid TikTok account and connect
               it to ManageTok. Your TikTok account and any other TikTok accounts
               that you manage through ManageTok are separate from your ManageTok
@@ -40,7 +41,6 @@ function TermsofService() {
                 </li>
               </ul>
               
-              <br />
               <br />
               <strong className="h4">Content submission and ownership</strong>
               <br />

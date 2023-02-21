@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
 import Layout from './components/Layout';
 import Login from './components/Login/Login';
@@ -32,6 +32,16 @@ function App() {
         }
       });
     }, []);
+
+    function ScrollToTop() {
+      const { pathname } = useLocation();
+    
+      useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [pathname]);
+    
+      return null;
+    }
     
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -46,6 +56,7 @@ function App() {
         </Route>
         <Route path="*" element={<Navigate to="/managetok" />} />
       </Routes>
+      <ScrollToTop />
     </UserContext.Provider>
 
   );

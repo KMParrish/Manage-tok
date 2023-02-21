@@ -1,11 +1,11 @@
 import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import '@fortawesome/fontawesome-free/css/all.css';
-import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import UserContext from '../../UserContext';
-import { getAuth, signOut } from 'firebase/auth';
+import "@fortawesome/fontawesome-free/css/all.css";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../UserContext";
+import { getAuth, signOut } from "firebase/auth";
 
 function Navbar() {
   const { user, setUser } = useContext(UserContext);
@@ -16,14 +16,14 @@ function Navbar() {
       const auth = getAuth();
       await signOut(auth);
       setUser(null);
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Error logging out user', error);
+      console.error("Error logging out user", error);
     }
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark gradient-custom">
+    <nav className="navbar navbar-expand-lg navbar-dark gradient-custom sticky-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           ManageTok
@@ -45,7 +45,11 @@ function Navbar() {
           <ul className="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
             {user && (
               <li className="nav-item text-center mx-2 mx-lg-1">
-                <Link className="nav-link active" to="/Dashboard" aria-current="page">
+                <Link
+                  className="nav-link active"
+                  to="/Dashboard"
+                  aria-current="page"
+                >
                   <div>
                     <i className="fas fa-home fa-lg mb-1"></i>
                   </div>
@@ -53,18 +57,16 @@ function Navbar() {
                 </Link>
               </li>
             )}
-
-
           </ul>
           <ul className="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
             {user ? (
               <li className="nav-item text-center mx-2 mx-lg-1">
-                <button className="nav-link btn btn-link" onClick={handleLogout}>
+                <Link className="nav-link" to="/Login" onClick={handleLogout}>
                   <div>
-                    <i className="fa-solid fa-left-from-bracket fa-lg mb-1"></i>
+                    <i className="fa-solid fa-right-from-bracket fa-lg mb-1"></i>
                   </div>
                   Logout
-                </button>
+                </Link>
               </li>
             ) : (
               <>
