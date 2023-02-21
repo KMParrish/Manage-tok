@@ -63,7 +63,7 @@ function Signup() {
                     <label className="form-label" htmlFor="typePasswordX">Password</label>
                   </div>
                   <div className="form-outline form-white mb-4">
-                    <input type="password" id="typeConfirmPasswordX" className="form-control form-control-lg" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} />
+                    <input type="password" id="typeConfirmPasswordX" className="form-control form-control-lg" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} onKeyDown={(event) => {if (event.key === 'Enter') handleSignUp(event)}} />
                     <label className="form-label" htmlFor="typeConfirmPasswordX">Confirm Password</label>
                   </div>
                   <button className="btn btn-outline-light btn-lg px-5" type="submit" onClick={handleSignUp} >Sign up</button>

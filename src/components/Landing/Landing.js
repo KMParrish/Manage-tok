@@ -1,5 +1,4 @@
-import tiktokIcon from '../images/tiktok.gif';
-
+import manageTokLogoGif from '../images/MANAGETOK-LOGO.gif'; // Assuming the images directory is located in the same directory as this file
 
 function LandingPage() {
   return (
@@ -30,7 +29,7 @@ function LandingPage() {
               </p>
               </div>
               <div className="col-sm-6 p-5 d-flex justify-content-center align-items-center">
-              <img src={tiktokIcon} alt="TikTok Icon" className="img-fluid" />
+              <img src={manageTokLogoGif} alt="TikTok Icon" className="img-fluid" />
               </div>
           </div>
           </div>
