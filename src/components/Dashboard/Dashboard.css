@@ -16,7 +16,7 @@
   }
   
   .btn {
-    border: 5px solid;
+    border: 2px solid;
     border-image-slice: 1;
     background: var(--gradient) !important;
     -webkit-background-clip: text !important;
@@ -27,10 +27,8 @@
   }
   
   .btn:hover, .btn:focus {
-        background: var(--gradient) !important;
     -webkit-background-clip: none !important;
-    -webkit-text-fill-color: #fff !important;
-    border: 5px solid #fff !important; 
+    border: 2px solid #fff !important; 
     box-shadow: #222 1px 0 10px;
     text-decoration: underline;
   }

@@ -83,7 +83,7 @@ function Dashboard() {
               </div>
               <div className="card-body">
                 <h5 className="card-title" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{file.name.split(' ').slice(0, 3).join(' ')}...</h5>
-                <button className="btn btn-danger" onClick={handleDeleteClick}>Delete</button>
+                <button className="btn" onClick={handleDeleteClick}>Delete</button>
               </div>
             </div>
           </div>
@@ -119,9 +119,9 @@ function Dashboard() {
             <div className="card h-100">
               <div className="card-header text-white">Sidebar</div>
               <div className="card-body">
-                <label htmlFor="folder-upload" className="btn btn-primary mb-2 w-100">Open Folder</label>
+                <label htmlFor="folder-upload" className="btn mb-2 w-100">Open Folder</label>
                 <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{display: 'none'}} onChange={handleFolderSelect} />
-                <button className="btn btn-danger mb-2 w-100" onClick={() => setSelectedFiles([])}>Clear All</button>
+                <button className="btn mb-2 w-100" onClick={() => setSelectedFiles([])}>Clear All</button>
               </div>
             </div>
           </div>
