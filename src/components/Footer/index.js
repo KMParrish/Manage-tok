@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import "./index.css"
 function Footer() {
   return (
-    <footer className="bg-dark text-white py-3">
+    <footer className="gradient-custom py-3">
       <div className="container">
         <div className="row">
-          <div className="col-sm-6">
+          <div className="col-sm-6 text-white">
             <p>&copy; 2023 ManageTok. All rights reserved.</p>
           </div>
           <div className="col-sm-6 text-end">

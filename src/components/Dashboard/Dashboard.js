@@ -24,49 +24,79 @@ function Dashboard() {
   }
 
   const handleFolderSelect = (event) => {
-    const files = event.target.files;
+    const files = [...event.target.files];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/mov', 'video/avi'];
+    const fileTypes = files.map(file => file.type);
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const url = URL.createObjectURL(file);
       file.previewUrl = url;
+      if (allowedTypes.includes(file.type)) {
+        if (file.type.includes('image')) {
+          // For images, just use the image URL as the thumbnail URL
+          file.thumbnailUrl = url;
+        } else {
+          // For videos, generate a thumbnail at 5 seconds using the HTML5 video element
+          const video = document.createElement('video');
+          video.src = url;
+          video.currentTime = 5;
+          video.onloadeddata = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            file.thumbnailUrl = canvas.toDataURL();
+          };
+        }
+      } else {
+        // For unsupported file types, set a default thumbnail URL
+        file.thumbnailUrl = '/path/to/default/thumbnail';
+      }
     }
     filesRef.current = [...files];
     setSelectedFiles(filesRef.current);
-  }
+  };
+  
+  
+  
 
   const FilePreviewBox = ({ file, onDelete }) => {
     const handlePreviewClick = () => {
       window.open(file.previewUrl);
-    }
-  
+    };
+    
     const handleDeleteClick = () => {
       onDelete(file);
-    }
-    
+    };
+      
     return (
       <div className="container mx-auto mt-4">
         <div className="row">
           <div className="col-md-4">
-            <div className="card h-100" style={{ width: '16rem' }}>
-              <img src={file.previewUrl} className="card-img-top" alt={file.name} style={{objectFit: 'cover', height: '8rem'}} />
-              <div className="card-body" style={{ maxHeight: '6rem', overflow: 'hidden' }}>
-              <h5 className="card-title" style={{ width: '100%', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
-                {file.name}
-              </h5>
-
-                <div className="d-flex justify-content-between">
-                  <button className="btn mr-2" onClick={handlePreviewClick}><i className="fas fa-link"></i> Preview</button>
-                  <button className="btn btn-secondary" onClick={handleDeleteClick}><i className="fas fa-trash"></i> Delete</button>
-                </div>
-                <p className="card-text">{file.description}</p>
-                <p className="card-text"><small className="text-muted">{file.uploadDate}</small></p>
+            <div className="card h-100" style={{ width: '15rem' }}>
+              <div style={{ paddingBottom: '75%', position: 'relative' }}>
+                {file.type.includes('video') ?
+                  <video src={file.previewUrl} className="card-img-top" poster={file.previewUrl + '?width=640'} onClick={handlePreviewClick} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, width: '100%', height: '100%' }} controls></video>
+                  :
+                  <img src={file.previewUrl} className="card-img-top" onClick={handlePreviewClick} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                }
+              </div>
+              <div className="card-body">
+                <h5 className="card-title" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{file.name.split(' ').slice(0, 3).join(' ')}...</h5>
+                <button className="btn btn-danger" onClick={handleDeleteClick}>Delete</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     );
-  }
+    
+    
+    
+    
+    
+  };
+  
   
 
   const renderFilePreviews = () => {
@@ -82,10 +112,10 @@ function Dashboard() {
   }
 
   return (
-    <section className="vh-100 gradient-custom-2">
-      <div className="container py-5 h-75 w-100">
+    <section className="vh-100 gradient-custom-2 container-padding">
+      
         <div className="row d-flex justify-content-center align-items-stretch h-100">
-          <div className="col-3">
+          <div className="col-2">
             <div className="card h-100">
               <div className="card-header text-white">Sidebar</div>
               <div className="card-body">
@@ -95,7 +125,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="col-9 h-100">
+          <div className="col-10 h-100">
             <div className="card h-100">
               <div className="card-header d-flex justify-content-between align-items-center">
                 <div>
@@ -117,7 +147,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      </div>
+      
     </section>
   );
   
