@@ -1,9 +1,9 @@
 {
-  "short_name": "ManageTok",
-  "name": "ManageTok",
+  "short_name": "UploadSocial",
+  "name": "UploadSocial",
   "icons": [
     {
-      "src": "manageTokLogo.png",
+      "src": "UploadSocialLogo.png",
       "sizes": "64x64 192x192 512x512",
       "type": "image/png"
     }
