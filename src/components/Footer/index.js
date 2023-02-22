@@ -7,7 +7,7 @@ function Footer() {
       <div className="container">
         <div className="row">
           <div className="col-sm-6 text-white">
-            <p>&copy; 2023 ManageTok. All rights reserved.</p>
+            <p>&copy; 2023 UploadSocial. All rights reserved.</p>
           </div>
           <div className="col-sm-6 text-end">
             <Link to="/terms" className="text-white mx-3">Terms of Service</Link>

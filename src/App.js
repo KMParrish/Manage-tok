@@ -54,7 +54,7 @@ function App() {
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="terms" element={<TermsofService />} />
         </Route>
-        <Route path="*" element={<Navigate to="/managetok" />} />
+        <Route path="*" element={<Navigate to="/UploadSocial" />} />
       </Routes>
       <ScrollToTop />
     </UserContext.Provider>

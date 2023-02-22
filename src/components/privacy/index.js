@@ -30,7 +30,7 @@ function PrivacyPolicy() {
           We may update this privacy policy from time to time to reflect changes to our data practices. We encourage users to review this policy regularly.
           <br />
           <br />
-          <small>By using ManageTok, you agree to the terms of this privacy policy. If you do not agree with the terms of this policy, please do not use the app.</small>
+          <small>By using UploadSocial, you agree to the terms of this privacy policy. If you do not agree with the terms of this policy, please do not use the app.</small>
         </p>
       </div>
     </div>
