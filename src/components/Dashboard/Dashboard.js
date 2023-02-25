@@ -26,7 +26,6 @@ function Dashboard() {
   const handleFolderSelect = (event) => {
     const files = [...event.target.files];
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/mov', 'video/avi'];
-    const fileTypes = files.map(file => file.type);
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const url = URL.createObjectURL(file);
@@ -56,19 +55,19 @@ function Dashboard() {
     filesRef.current = [...files];
     setSelectedFiles(filesRef.current);
   };
-  
-  
-  
+
+
+
 
   const FilePreviewBox = ({ file, onDelete }) => {
     const handlePreviewClick = () => {
       window.open(file.previewUrl);
     };
-    
+
     const handleDeleteClick = () => {
       onDelete(file);
     };
-      
+
     return (
       <div className="container mx-auto mt-4">
         <div className="row">
@@ -78,7 +77,7 @@ function Dashboard() {
                 {file.type.includes('video') ?
                   <video src={file.previewUrl} className="card-img-top" poster={file.previewUrl + '?width=640'} onClick={handlePreviewClick} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, width: '100%', height: '100%' }} controls></video>
                   :
-                  <img src={file.previewUrl} className="card-img-top" onClick={handlePreviewClick} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={file.previewUrl} alt="" className="card-img-top" onClick={handlePreviewClick} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                 }
               </div>
               <div className="card-body">
@@ -90,14 +89,14 @@ function Dashboard() {
         </div>
       </div>
     );
-    
-    
-    
-    
-    
+
+
+
+
+
   };
-  
-  
+
+
 
   const renderFilePreviews = () => {
     return (
@@ -113,55 +112,55 @@ function Dashboard() {
 
   return (
     <section className="vh-100 gradient-custom-2 container-padding">
-      
-        <div className="row d-flex justify-content-center align-items-stretch h-100">
-          <div className="col-2">
-            <div className="card h-100">
-              <div className="card-header text-white">Sidebar</div>
-              <div className="card-body">
-                <label htmlFor="folder-upload" className="btn mb-2 w-100">Open Folder</label>
-                <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{display: 'none'}} onChange={handleFolderSelect} />
-                <button className="btn mb-2 w-100" onClick={() => setSelectedFiles([])}>Clear All</button>
-              </div>
+
+      <div className="row d-flex justify-content-center align-items-stretch h-100">
+        <div className="col-2">
+          <div className="card h-100">
+            <div className="card-header text-white">Sidebar</div>
+            <div className="card-body">
+              <label htmlFor="folder-upload" className="btn mb-2 w-100">Open Folder</label>
+              <input id="folder-upload" type="file" webkitdirectory="" mozdirectory="" style={{ display: 'none' }} onChange={handleFolderSelect} />
+              <button className="btn mb-2 w-100" onClick={() => setSelectedFiles([])}>Clear All</button>
             </div>
           </div>
-          <div className="col-10 h-100">
-            <div className="card h-100">
-              <div className="card-header d-flex justify-content-between align-items-center">
-                <div>
+        </div>
+        <div className="col-10 h-100">
+          <div className="card h-100">
+            <div className="card-header d-flex justify-content-between align-items-center">
+              <div>
                 <DropdownButton title={<><i className="fab fa-tiktok fa-inverse me-2"></i>Accounts</>} variant="secondary" className="text-decoration-none text-dark">
                   <Dropdown.Item href="#">Account 1</Dropdown.Item>
                   <Dropdown.Item href="#">Account 2</Dropdown.Item>
                   <Dropdown.Item href="#">Account 3</Dropdown.Item>
-                  </DropdownButton>
-  
-                </div>
-                <DropdownButton title="Sort by" variant="secondary" className="text-decoration-none text-dark">
-                  <Dropdown.Item href="#">Name</Dropdown.Item>
-                  <Dropdown.Item href="#">Upload Date</Dropdown.Item>
                 </DropdownButton>
+
               </div>
-              <div className="card-body" style={{ overflow: 'auto' }}>
-                {selectedFiles.length > 0 ? renderFilePreviews() : <p>No files selected.</p>}
-              </div>
+              <DropdownButton title="Sort by" variant="secondary" className="text-decoration-none text-dark">
+                <Dropdown.Item href="#">Name</Dropdown.Item>
+                <Dropdown.Item href="#">Upload Date</Dropdown.Item>
+              </DropdownButton>
+            </div>
+            <div className="card-body" style={{ overflow: 'auto' }}>
+              {selectedFiles.length > 0 ? renderFilePreviews() : <p>No files selected.</p>}
             </div>
           </div>
         </div>
-      
+      </div>
+
     </section>
   );
-  
-  
-  
-  
-  
-  
-  
-  
 
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
 }
 
 export default Dashboard 
